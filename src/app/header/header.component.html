@@ -1,0 +1,8 @@
+<mat-toolbar color="primary" class="header">
+  <span>Gerenciamento MILHO!</span>
+  <div class="button-container">
+    <button mat-raised-button *ngIf="authService.isAuthenticated" (click)="logout()">Logout</button>
+    <!-- Verifique se o usuário NÃO está autenticado antes de mostrar o botão "Login" -->
+    <button mat-raised-button *ngIf="!authService.isAuthenticated" (click)="showLogin()">Login</button>
+  </div>
+</mat-toolbar>

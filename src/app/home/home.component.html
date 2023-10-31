@@ -1,0 +1,118 @@
+<mat-card class="table-card">
+
+  <!-- Botão "Incluir nova blindagem" -->
+  <button mat-raised-button color="primary" (click)="toggleForm()">Incluir nova blindagem</button>
+
+  <!-- Formulário de inserção -->
+  <div *ngIf="showForm" style="margin-top: 20px;" [formGroup]="formBlindagem">
+    <mat-form-field appearance="outline" style="margin-right: 10px;">
+      <mat-label>PO</mat-label>
+      <input matInput formControlName="position">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-right: 10px;">
+      <mat-label>Aldeia</mat-label>
+      <input matInput formControlName="village">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-right: 10px;">
+      <mat-label>Lancas</mat-label>
+      <input matInput formControlName="lancas">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-right: 10px;">
+      <mat-label>Espadas</mat-label>
+      <input matInput formControlName="espadas">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-right: 10px;">
+      <mat-label>Arqueiros</mat-label>
+      <input matInput formControlName="arqueiros">
+    </mat-form-field>
+    <!-- Adicionar campos conforme necessidade -->
+    <button mat-raised-button color="accent" (click)="addEntry()">Adicionar</button>
+</div>
+
+
+</mat-card>
+
+<mat-card class="table-card">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Cabeçalho da Tabela -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>PO</th>
+      <td mat-cell *matCellDef="let element">{{element.position}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="village">
+      <th mat-header-cell *matHeaderCellDef>Aldeia</th>
+      <td mat-cell *matCellDef="let element">{{element.village}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lancas">
+      <th mat-header-cell *matHeaderCellDef>Lancas</th>
+      <td mat-cell *matCellDef="let element">{{element.lancas}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="espadas">
+      <th mat-header-cell *matHeaderCellDef>Espadas</th>
+      <td mat-cell *matCellDef="let element">{{element.espadas}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="arqueiros">
+      <th mat-header-cell *matHeaderCellDef>Arqueiros</th>
+      <td mat-cell *matCellDef="let element">{{element.arqueiros}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="check">
+      <th mat-header-cell *matHeaderCellDef>Check</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.check; else notChecked">done</mat-icon>
+        <ng-template #notChecked>
+          <mat-icon>close</mat-icon>
+        </ng-template>
+      </td>
+    </ng-container>
+
+
+    <!-- Cabeçalho da Tabela -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
+
+<mat-card class="table-card">
+  <form [formGroup]="deductionForm" (ngSubmit)="deductValues()" class="form-inline">
+    <mat-form-field appearance="outline" class="small-input">
+      <mat-label>PO</mat-label>
+      <mat-select formControlName="position" class="mr-2">
+        <mat-option *ngFor="let item of dataSource.data" [value]="item.position">
+          {{item.position}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Aldeia</mat-label>
+      <mat-select formControlName="village" class="mr-2">
+        <mat-option *ngFor="let item of dataSource.data" [value]="item.village">
+          {{item.village}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="small-input">
+      <mat-icon matPrefix>
+        <img src="assets/Spear.png" alt="Spear Icon" width="24" height="24">
+      </mat-icon>
+      <input matInput formControlName="lancas" class="mr-2">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="small-input">
+      <mat-icon matPrefix>
+        <img src="assets/Sword.png" alt="Spear Icon" width="24" height="24">
+      </mat-icon>
+      <input matInput formControlName="espadas" class="mr-2">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="small-input">
+      <mat-icon matPrefix>
+        <img src="assets/Archer.png" alt="Spear Icon" width="24" height="24">
+      </mat-icon>
+      <input matInput formControlName="arqueiros" class="mr-2">
+    </mat-form-field>
+    <button mat-raised-button color="accent">Enviar</button>
+  </form>
+</mat-card>

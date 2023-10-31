@@ -1,0 +1,10 @@
+/* header.component.css */
+.header {
+  display: flex;
+  justify-content: space-between; /* Coloca os elementos no início e no final da barra de cabeçalho */
+  align-items: center; /* Alinha verticalmente os elementos no centro */
+}
+
+.button-container {
+  margin-left: auto; /* Move o botão para a direita, alinhando-o no final */
+}
