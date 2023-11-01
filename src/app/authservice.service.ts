@@ -1,32 +1,51 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthserviceService {
 
-  isAuthenticated = false; // Indica se o usuário está autenticado
-  showLoginComponent = false; // Indica se o componente de login deve ser exibido
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  login(username: string, password: string): Observable<boolean> {
-    console.log('login', username);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.isAdminSubject.asObservable();
 
-    // Simule uma chamada assíncrona para verificar a autenticação.
-    return of(username === 'admin' && password === 'admin').pipe(
-      tap((authenticated) => {
-        if (authenticated) {
-          this.isAuthenticated = true;
-          this.showLoginComponent = false;
-        }
-      })
-    );
+  constructor(
+    private afAuth: AngularFireAuth,
+    private http: HttpClient, // Injete o HttpClient
+  ) {
+    this.afAuth.authState.subscribe((user) => {
+      this.isAuthenticatedSubject.next(!!user);
+      if (user) {
+        this.checkAdmin(user.uid).then(isAdmin => {
+          this.isAdminSubject.next(isAdmin);
+        });
+      } else {
+        this.isAdminSubject.next(false);
+      }
+    });
   }
 
-  logout(): void {
-    // Implemente a lógica de logout aqui.
-    // Defina isAuthenticated como false e mostre o componente de login.
-    this.isAuthenticated = false;
-    this.showLoginComponent = true;
+  login(email: string, password: string): Observable<any> {
+    return from(this.afAuth.signInWithEmailAndPassword(email, password));
+  }
+
+  logout(): Promise<void> {
+    return this.afAuth.signOut();
+  }
+
+  private async checkAdmin(uid: string): Promise<boolean> {
+    try {
+      // Substitua 'your-backend-url' pelo URL do seu servidor
+      const response = await this.http.get<{ isAdmin: boolean }>(`http://localhost:3000/is-admin?uid=${uid}`).toPromise();
+      return response?.isAdmin ?? false
+    } catch (error) {
+      console.error('Erro ao verificar se o usuário é um administrador:', error);
+      return false;
+    }
   }
 }

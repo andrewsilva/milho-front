@@ -11,6 +11,9 @@
   width: 80%;
   margin: 2rem auto;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 table {
@@ -19,4 +22,16 @@ table {
 
 .small-input {
   max-width: 130px; /* Defina a largura máxima desejada */
+}
+
+.space{
+  margin-left: 10px;
+}
+
+.green-icon {
+  color: green; /* Define a cor verde para o ícone de "done" */
+}
+
+.red-icon {
+  color: red; /* Define a cor vermelha para o ícone de "close" */
 }

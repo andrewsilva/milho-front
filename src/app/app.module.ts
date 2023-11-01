@@ -16,9 +16,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContainerComponent } from './container/container.component';
 import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire/compat';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDMsq7pz55UD6HPJogZaUQ_qTy09xzMyzY",
+  authDomain: "milho-c89cb.firebaseapp.com",
+  projectId: "milho-c89cb",
+  storageBucket: "milho-c89cb.appspot.com",
+  messagingSenderId: "213770553121",
+  appId: "1:213770553121:web:922a76da26d988d947e060",
+  measurementId: "G-EVZWZCRK7V"
+};
 
 @NgModule({
   declarations: [
@@ -42,7 +57,10 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     MatIconModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
