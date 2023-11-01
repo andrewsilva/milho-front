@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApoiosService {
   public formularioIncluido = new EventEmitter<void>();
 
-  private apiUrl = 'http://localhost:3000/api'; // Substitua pela URL do seu endpoint Node.js
+  private apiUrl = 'https://milho-back-production.up.railway.app/api'; // Substitua pela URL do seu endpoint Node.js
 
   constructor(private http: HttpClient) {}
 

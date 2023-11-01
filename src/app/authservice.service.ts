@@ -41,7 +41,7 @@ export class AuthserviceService {
   private async checkAdmin(uid: string): Promise<boolean> {
     try {
       // Substitua 'your-backend-url' pelo URL do seu servidor
-      const response = await this.http.get<{ isAdmin: boolean }>(`http://localhost:3000/is-admin?uid=${uid}`).toPromise();
+      const response = await this.http.get<{ isAdmin: boolean }>(`https://milho-back-production.up.railway.app/is-admin?uid=${uid}`).toPromise();
       return response?.isAdmin ?? false
     } catch (error) {
       console.error('Erro ao verificar se o usuário é um administrador:', error);
