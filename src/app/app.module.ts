@@ -21,7 +21,10 @@ import { LoginComponent } from './login/login.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ModalImagemComponent } from './modal-imagem/modal-imagem.component';
 
 
 
@@ -42,6 +45,7 @@ const firebaseConfig = {
     ContainerComponent,
     LoginComponent,
     HomeComponent,
+    ModalImagemComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,9 @@ const firebaseConfig = {
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

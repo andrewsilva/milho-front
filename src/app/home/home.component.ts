@@ -1,10 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ApoiosService } from '../apoios.service';
 import { AuthserviceService } from '../authservice.service';
+import { ModalImagemComponent } from '../modal-imagem/modal-imagem.component';
 
 
 @Component({
@@ -24,7 +26,7 @@ export class HomeComponent {
   isVillageDisabled: boolean = true;
 
 
-  constructor(private fb: FormBuilder, public authService: AuthserviceService, private apoiosService: ApoiosService, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private fb: FormBuilder, public authService: AuthserviceService, private apoiosService: ApoiosService, private router: Router, private _snackBar: MatSnackBar) {
     this.apoiosService.formularioIncluido.subscribe(() => {
       // Atualize os dados do componente após a inclusão bem-sucedida
       this.atualizarDados();
@@ -51,6 +53,10 @@ export class HomeComponent {
       this.dataSource.data = dataArray;
       console.log('Dados atualizados', this.dataSource);
     });
+  }
+
+  openModal() {
+    this.dialog.open(ModalImagemComponent);
   }
 
   addEntry() {
